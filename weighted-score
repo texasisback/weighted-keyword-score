@@ -1,0 +1,51 @@
+import pandas as pd
+
+#get file object reference to the file
+#ADD EXTRA BACKSLASH TO FILE LOCATION ("C:\\User\\Project\\")
+file = open("C:\\User\\Project\\<insert file path here>.txt", "r", encoding="utf8")
+
+#read content of file to string
+data = file.read()
+
+#covert to lower case
+data = data.lower()
+
+#get number of occurrences of the substring in the string
+tinnitus = data.count("tinnitus")
+hearing_loss = data.count("hearing loss")
+partial = data.count("partial")
+full = data.count("full")
+mild = data.count("mild")
+moderate = data.count("moderate")
+severe = data.count("severe")
+brain = data.count("brain")
+audiogram = data.count("audiogram")
+bilateral = data.count("bilateral")
+constant  = data.count("constant")
+recurrent = data.count("recurrent")
+
+#weight each keyword
+tinnitus = tinnitus * 5
+hearing_loss = hearing_loss * 10
+partial = partial * 3
+full = full * 7
+mild = mild * 3
+moderate = moderate * 5
+severe = severe * 7
+brain = brain * 10
+audiogram = audiogram * 1
+bilateral = bilateral * 8
+constant  = constant * 7
+recurrent = recurrent * 3
+
+#total of all weighted values
+total = tinnitus + hearing_loss + partial + full + mild + moderate + severe + brain + audiogram + bilateral + constant + recurrent
+
+
+#print weighted total per word and total
+lst = ["tinnitus", "hearing_loss", "partial", "full", "mild", "moderate", "severe", "brain", "audiogram", "bilateral", "constant", "recurrent", "total"]
+lst2 = [tinnitus, hearing_loss, partial, full, mild, moderate, severe, brain, audiogram, bilateral, constant, recurrent, total]
+df = pd.DataFrame(list(zip(lst, lst2)), columns=("injury", "weighted total"))
+print(df)
+
+df.to_csv('<insert output name>.csv')
